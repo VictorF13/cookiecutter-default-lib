@@ -1,0 +1,18 @@
+repos:
+- repo: https://github.com/astral-sh/ruff-pre-commit
+  rev: v0.12.4
+  hooks:
+    - id: ruff-check
+      args: [ --fix ]
+    - id: ruff-format
+- repo: https://github.com/astral-sh/uv-pre-commit
+  rev: 0.8.0
+  hooks:
+  hooks:
+    - id: uv-export
+      name: main dependencies
+      args: [--no-dev, --output-file, requirements.txt]
+    - id: uv-export
+      name: dev dependencies
+      args: [--only-group, dev, --output-file, requirements-dev.txt]
+    - id: uv-lock
