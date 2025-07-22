@@ -7,7 +7,7 @@ authors = [
     { name = "VictorF13", email = "victorabreuf13@gmail.com" }
 ]
 maintainers = [
-    { name = "VictorF13", email = "victorabreuf13@gmail.com" },
+    { name = "VictorF13", email = "victorabreuf13@gmail.com" }
 ]
 requires-python = ">=3.12"
 license = { text = "MIT" }
