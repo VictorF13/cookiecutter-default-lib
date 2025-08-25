@@ -2,8 +2,8 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
-A Cookiecutter template for bootstrapping a modern Python library project. I,
-VictorF13, use this template myself whenever starting a new library.
+A Cookiecutter template for bootstrapping a modern Python library project. I
+use this template myself whenever starting a new library.
 
 ## Features
 
