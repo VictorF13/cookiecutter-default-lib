@@ -6,17 +6,17 @@ set -e
 # Add development dependencies
 uv add --dev ruff
 uv add --dev basedpyright
-uv add --dev pre-commit
+uv add --dev prek
 
-# Initialize git and install pre-commit hooks
+# Initialize git and install prek hooks
 git init -b "main"
-uv run pre-commit install
-uv run pre-commit autoupdate
-uv run pre-commit install
+uv run prek install
+uv run prek autoupdate
+uv run prek install
 
 # Make initial commit
 git add .
-uv run pre-commit run --all-files
+uv run prek run --all-files
 git add .
 git commit -m "Initial commit"
 
