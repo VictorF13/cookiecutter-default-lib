@@ -21,6 +21,14 @@ pip install cookiecutter
 
 Ensure `uv`, `git`, and Python **3.12+** are available.
 
+Configure Git with your `user.name` and `user.email` before running the template
+so the initial commit can be created:
+
+```bash
+git config --global user.name "Your Name"
+git config --global user.email "you@example.com"
+```
+
 ## Usage
 
 Generate a new project:
