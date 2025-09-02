@@ -5,6 +5,10 @@ repos:
     - id: ruff-check
       args: [ --fix ]
     - id: ruff-format
+- repo: https://github.com/DetachHead/basedpyright-pre-commit-mirror
+  rev: v1.13.0
+  hooks:
+    - id: basedpyright
 - repo: https://github.com/astral-sh/uv-pre-commit
   rev: 0.8.0
   hooks:
@@ -15,3 +19,4 @@ repos:
       name: dev dependencies
       args: [--only-group, dev, --output-file, requirements-dev.txt]
     - id: uv-lock
+

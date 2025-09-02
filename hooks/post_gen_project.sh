@@ -5,7 +5,7 @@ set -e
 
 # Add development dependencies
 uv add --dev ruff
-uv add --dev ty
+uv add --dev basedpyright
 uv add --dev pre-commit
 
 # Initialize git and install pre-commit hooks
