@@ -22,10 +22,12 @@ def _check_commands() -> None:
 
     if missing:
         missing_str = ", ".join(missing)
-        sys.exit(
+        msg = (
             f"Missing required command(s): {missing_str}. "
             "Please install them and try again."
         )
+        sys.exit(
+            msg)
 
 
 def _check_python_version() -> None:
@@ -34,10 +36,11 @@ def _check_python_version() -> None:
     if sys.version_info < required:
         current = ".".join(str(x) for x in sys.version_info[:3])
         required_str = ".".join(str(x) for x in required)
-        sys.exit(
-            "Python "
-            f"{required_str}+ is required to use this template (found {current})."
+        msg = (
+            f"Python {required_str}+ is required to use this template "
+            f"(found {current})."
         )
+        sys.exit(msg)
 
 
 def main() -> None:
@@ -48,4 +51,3 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
-
