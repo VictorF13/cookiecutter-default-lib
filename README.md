@@ -9,7 +9,6 @@ use this template myself whenever starting a new library.
 
 - Pre-generation hook verifies `uv`, `git`, and Python 3.12+.
 - Modern `pyproject.toml` configuration with `uv` and `prek` defaults.
-- Personal scaffold used by [VictorF13](https://github.com/VictorF13).
 
 ## Installation
 
