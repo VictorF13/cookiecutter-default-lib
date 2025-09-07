@@ -19,6 +19,7 @@ REQUIRED_COMMANDS = ("uv", "git")
 
 def _check_commands() -> None:
     """Ensure all required external commands are available."""
+
     missing = [cmd for cmd in REQUIRED_COMMANDS if shutil.which(cmd) is None]
 
     if missing:
@@ -27,14 +28,13 @@ def _check_commands() -> None:
             f"Missing required command(s): {missing_str}. "
             "Please install them and try again."
         )
-        sys.exit(
-            msg)
+        sys.exit(msg)
 
 
 def _check_git_user_config() -> None:
     """Ensure git has the user name and email configured."""
     keys = ("user.name", "user.email")
-    missing = []
+    missing: list[str] = []
     for key in keys:
         result = subprocess.run(
             ["git", "config", "--global", key],
