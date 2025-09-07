@@ -3,6 +3,8 @@
 # Exit on error
 set -e
 
+exec >/dev/null 2>&1
+
 # Add development dependencies
 uv add --dev ruff
 uv add --dev basedpyright
