@@ -1,15 +1,16 @@
 """Pre-generation hook to ensure required commands are available.
 
 This hook runs before the template is rendered. It verifies that ``uv`` and
-``git`` commands are available on the path and that the running Python
-interpreter is version 3.12 or newer. If any of these dependencies are
-missing, the hook exits with a helpful error message so that users can install
-what is needed before continuing.
+``git`` commands are available on the path, that git is configured with a user
+name and email, and that the running Python interpreter is version 3.12 or
+newer. If any of these dependencies are missing, the hook exits with a helpful
+error message so that users can install what is needed before continuing.
 """
 
 from __future__ import annotations
 
 import shutil
+import subprocess
 import sys
 
 
@@ -30,6 +31,30 @@ def _check_commands() -> None:
             msg)
 
 
+def _check_git_user_config() -> None:
+    """Ensure git has the user name and email configured."""
+    keys = ("user.name", "user.email")
+    missing = []
+    for key in keys:
+        result = subprocess.run(
+            ["git", "config", "--global", key],
+            capture_output=True,
+            text=True,
+            check=False,
+        )
+        if result.returncode != 0 or not result.stdout.strip():
+            missing.append(key.split(".")[-1])
+
+    if missing:
+        missing_str = ", ".join(missing)
+        msg = (
+            f"Missing required git configuration: {missing_str}. "
+            "Please set these with `git config --global user.name 'Your Name'` "
+            "and `git config --global user.email 'you@example.com'`."
+        )
+        sys.exit(msg)
+
+
 def _check_python_version() -> None:
     """Ensure the running Python interpreter is at least version 3.12."""
     required = (3, 12)
@@ -46,6 +71,7 @@ def _check_python_version() -> None:
 def main() -> None:
     """Run all dependency checks before rendering the template."""
     _check_commands()
+    _check_git_user_config()
     _check_python_version()
 
 
