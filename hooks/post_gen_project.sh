@@ -10,7 +10,7 @@ fi
 
 run_tasks() {
   uv add --dev ruff
-  uv add --dev basedpyright
+  uv add --dev ty
   uv add --dev prek
 
   git init -b "main"
