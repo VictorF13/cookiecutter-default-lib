@@ -7,7 +7,7 @@ use this template myself whenever starting a new library.
 
 ## Features
 
-- Pre-generation hook verifies `uv`, `git`, and Python 3.12+.
+- Pre-generation hook verifies `uv`, `git`, and Python 3.14+.
 - Modern `pyproject.toml` configuration with `uv` and `prek` defaults.
 
 ## Installation
@@ -18,7 +18,7 @@ Install [Cookiecutter](https://cookiecutter.readthedocs.io/en/latest/):
 pip install cookiecutter
 ```
 
-Ensure `uv`, `git`, and Python **3.12+** are available.
+Ensure `uv`, `git`, and Python **3.14+** are available.
 
 Configure Git with your `user.name` and `user.email` before running the template
 so the initial commit can be created:
