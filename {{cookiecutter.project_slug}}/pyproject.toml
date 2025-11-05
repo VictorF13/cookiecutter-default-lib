@@ -21,7 +21,3 @@ build-backend = "hatchling.build"
 lint.extend-select = ["ALL"]
 lint.ignore = ["PLR0913", "D203", "D213", "COM812"]
 
-[tool.basedpyright]
-include = ["src"]
-typeCheckingMode = "recommended"
-
