@@ -1,6 +1,6 @@
 {
     "_extensions": ["hooks.git_user_config.GitUserConfigExtension"],
-    "project_name": "My Awesome Project",
+    "project_name": "New Project",
     "project_description": "Initial setup for {{ cookiecutter.project_name }}.",
     "project_slug": "{{ cookiecutter.project_name.lower().replace(' ', '-') }}",
     "package_slug": "{{ cookiecutter.project_name.lower().replace(' ', '_').replace('-', '_') }}",

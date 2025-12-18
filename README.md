@@ -2,20 +2,19 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
-A Cookiecutter template for bootstrapping a modern Python library project. I
-use this template myself whenever starting a new library.
+A Cookiecutter template for bootstrapping a modern Python library project. This setups a simple library with Python 3.14, `ruff` for linting and formatting, `ty` for type checking, and `prek` for pre-commit hooks, as well as the necessary hooks for those tools.
 
 ## Features
 
 - Pre-generation hook verifies `uv`, `git`, and Python 3.14+.
-- Modern `pyproject.toml` configuration with `uv` and `prek` defaults.
+- Modern `pyproject.toml` configuration with `uv` and `prek` defaults using `ty` and `ruff`.
 
 ## Installation
 
 Install [Cookiecutter](https://cookiecutter.readthedocs.io/en/latest/):
 
 ```bash
-pip install cookiecutter
+uv tool install cookiecutter
 ```
 
 Ensure `uv`, `git`, and Python **3.14+** are available.
@@ -57,4 +56,3 @@ Python packaging ecosystem.
 ## License
 
 Distributed under the [MIT License](LICENSE).
-
