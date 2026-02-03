@@ -2,7 +2,7 @@
 
 This hook runs before the template is rendered. It verifies that ``uv`` and
 ``git`` commands are available on the path, that git is configured with a user
-name and email, and that the running Python interpreter is version 3.8 or
+name and email, and that the running Python interpreter is version 3.14 or
 newer. If any of these dependencies are missing, the hook exits with a helpful
 error message so that users can install what is needed before continuing.
 """
@@ -56,8 +56,8 @@ def _check_git_user_config() -> None:
 
 
 def _check_python_version() -> None:
-    """Ensure the running Python interpreter is at least version 3.8."""
-    required = (3, 8)
+    """Ensure the running Python interpreter is at least version 3.14."""
+    required = (3, 14)
     if sys.version_info < required:
         current = ".".join(str(x) for x in sys.version_info[:3])
         required_str = ".".join(str(x) for x in required)
