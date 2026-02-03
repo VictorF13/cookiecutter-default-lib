@@ -13,13 +13,11 @@ import shutil
 import subprocess
 import sys
 
-
 REQUIRED_COMMANDS = ("uv", "git")
 
 
 def _check_commands() -> None:
     """Ensure all required external commands are available."""
-
     missing = [cmd for cmd in REQUIRED_COMMANDS if shutil.which(cmd) is None]
 
     if missing:
@@ -33,11 +31,14 @@ def _check_commands() -> None:
 
 def _check_git_user_config() -> None:
     """Ensure git has the user name and email configured."""
+    git_executable = shutil.which("git")
+    if git_executable is None:
+        return
     keys = ("user.name", "user.email")
     missing: list[str] = []
     for key in keys:
-        result = subprocess.run(
-            ["git", "config", "--global", key],
+        result = subprocess.run(  # noqa: S603
+            [git_executable, "config", "--global", key],
             capture_output=True,
             text=True,
             check=False,
