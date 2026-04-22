@@ -24,7 +24,7 @@ def _git_config(key: GitConfigKey) -> str:
     if git_executable is None:
         return ""
     result = subprocess.run(  # noqa: S603
-        [git_executable, "config", "--global", key],
+        [git_executable, "config", key],
         capture_output=True,
         text=True,
         check=False,

@@ -47,7 +47,7 @@ def _check_git_user_config() -> None:
     missing: list[str] = []
     for key in keys:
         result = subprocess.run(  # noqa: S603
-            [git_executable, "config", "--global", key],
+            [git_executable, "config", key],
             capture_output=True,
             text=True,
             check=False,
@@ -60,7 +60,8 @@ def _check_git_user_config() -> None:
         msg = (
             f"Missing required git configuration: {missing_str}. "
             "Please set these with `git config --global user.name 'Your Name'` "
-            "and `git config --global user.email 'you@example.com'`."
+            "and `git config --global user.email 'you@example.com'`"
+            " (or via system config / environment variables)."
         )
         sys.exit(msg)
 
