@@ -9,7 +9,7 @@ authors = [
 maintainers = [
     { name = "{{ cookiecutter.username }}", email = "{{ cookiecutter.email }}" }
 ]
-requires-python = ">=3.14"
+requires-python = ">={{ cookiecutter.python_version }}"
 license = { text = "MIT" }
 dependencies = []
 

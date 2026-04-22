@@ -11,6 +11,8 @@ fi
 run_tasks() {
   uv add --dev ruff ty prek
 
+  uv sync
+
   git init -b "main"
   uv run prek install
   uv run prek autoupdate
