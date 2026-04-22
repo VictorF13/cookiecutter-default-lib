@@ -1,57 +1,82 @@
-# Cookiecutter Default Library Template
+# cookiecutter-default-lib
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
-A Cookiecutter template for bootstrapping a modern Python library project. This setups a simple library with Python 3.14, `ruff` for linting and formatting, `ty` for type checking, and `prek` for pre-commit hooks, as well as the necessary hooks for those tools.
+A [Cookiecutter](https://cookiecutter.readthedocs.io) template for bootstrapping a modern, strict Python library. Generates a fully configured project with linting, formatting, type checking, and pre-commit hooks, ready to use immediately after generation.
 
-## Features
+## Prerequisites
 
-- Pre-generation hook verifies `uv`, `git`, and Python 3.14.
-- Modern `pyproject.toml` configuration with `uv` and `prek` defaults using `ty` and `ruff`.
+- [`uv`](https://docs.astral.sh/uv/): used for dependency management and running tools
+- `git`: with `user.name` and `user.email` configured
+- [`cookiecutter`](https://cookiecutter.readthedocs.io): to run the template
 
-## Installation
+Install `cookiecutter` via `uv`:
 
-Install [Cookiecutter](https://cookiecutter.readthedocs.io/en/latest/):
-
-```bash
+```zsh
 uv tool install cookiecutter
 ```
 
-Ensure `uv`, `git`, and Python **3.14** are available.
-
-Configure Git with your `user.name` and `user.email` before running the template
-so the initial commit can be created:
-
-```bash
-git config --global user.name "Your Name"
-git config --global user.email "you@example.com"
-```
+No specific Python version is required. The template detects the default Python version from your `uv` installation and uses it automatically.
 
 ## Usage
 
-Generate a new project:
-
-```bash
+```zsh
 cookiecutter gh:VictorF13/cookiecutter-default-lib
 ```
 
-Answer the prompts and a skeleton library will be created.
+You will be prompted for:
 
-## Documentation
+| Prompt | Description | Default |
+|---|---|---|
+| `project_name` | Human-readable name of the library | `New Project` |
+| `project_description` | Short description | Auto-filled from name |
+| `python_version` | Minimum Python version for the project | Detected from `uv` |
+| `username` | Author name | Detected from `git config` |
+| `email` | Author email | Detected from `git config` |
 
-This repository is the documentation for the template. For more on Cookiecutter,
-see the [official docs](https://cookiecutter.readthedocs.io/en/latest/).
+`project_slug` (PyPI name) and `package_slug` (import name) are derived automatically from `project_name` and are not prompted.
 
-## Changelog
+## What gets generated
 
-Pull requests and issues are welcome, but this template is primarily for my
-personal use.
+```
+<project-slug>/
+├── src/<package-slug>/
+│   ├── __init__.py       # Module entry point
+│   └── py.typed          # PEP 561 type marker
+├── pyproject.toml        # Project metadata and tool configuration
+├── .pre-commit-config.yaml
+├── .python-version       # Pinned to detected Python version
+├── .gitignore
+├── LICENSE               # MIT
+└── README.md
+```
 
-## Credits
+### Tooling included
 
-Created and maintained by [VictorF13](https://github.com/VictorF13). Inspired by
-[Cookiecutter](https://cookiecutter.readthedocs.io/en/latest/) and the broader
-Python packaging ecosystem.
+| Tool | Purpose |
+|---|---|
+| [`ruff`](https://docs.astral.sh/ruff/) | Linting (all rules) and formatting |
+| [`ty`](https://github.com/astral-sh/ty) | Type checking |
+| [`prek`](https://github.com/astral-sh/prek) | Pre-commit hook runner |
+| [`hatchling`](https://hatch.pypa.io) | Build backend |
+
+Pre-commit hooks run on every commit: `ruff check --fix`, `ruff format`, `ty check`, and `uv export`/`uv lock` to keep dependency files in sync.
+
+## Post-generation setup
+
+After rendering the template, the post-generation hook automatically:
+
+1. Installs dev dependencies (`ruff`, `ty`, `prek`) via `uv`
+2. Initialises a git repository on `main`
+3. Installs and updates pre-commit hooks via `prek`
+4. Runs all hooks on the initial files to ensure everything is clean
+
+If any step fails, the generated directory is removed automatically so no partial project is left behind.
+
+## Notes
+
+- This template is primarily for personal use. Issues and pull requests are welcome but may not be addressed promptly.
+- The ruff ruleset enables all rules with a minimal set of ignores (`PLR0913`, `D203`, `D213`, `COM812`) for a strict, uncompromising setup.
 
 ## License
 
