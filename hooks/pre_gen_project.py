@@ -2,9 +2,10 @@
 
 This hook runs before the template is rendered. It verifies that ``uv`` and
 ``git`` commands are available on the path, that git is configured with a user
-name and email, and that the running Python interpreter is version 3.14 or
-newer. If any of these dependencies are missing, the hook exits with a helpful
-error message so that users can install what is needed before continuing.
+name and email, and that the derived project and package slugs are valid.
+
+The target project's Python version is detected at render time from
+``uv python find`` and defaults to 3.14 if unavailable.
 """
 
 from __future__ import annotations
@@ -64,19 +65,6 @@ def _check_git_user_config() -> None:
         sys.exit(msg)
 
 
-def _check_python_version() -> None:
-    """Ensure the running Python interpreter is at least version 3.14."""
-    required = (3, 14)
-    if sys.version_info < required:
-        current = ".".join(str(x) for x in sys.version_info[:3])
-        required_str = ".".join(str(x) for x in required)
-        msg = (
-            f"Python {required_str}+ is required to use this template "
-            f"(found {current})."
-        )
-        sys.exit(msg)
-
-
 def _check_slugs() -> None:
     """Validate derived project_slug and package_slug."""
     if not _PYPI_NAME_RE.match(PROJECT_SLUG):
@@ -100,7 +88,6 @@ def main() -> None:
     """Run all dependency checks before rendering the template."""
     _check_commands()
     _check_git_user_config()
-    _check_python_version()
     _check_slugs()
 
 
