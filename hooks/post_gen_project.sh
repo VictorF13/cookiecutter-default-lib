@@ -9,19 +9,15 @@ else
 fi
 
 run_tasks() {
-  uv add --dev ruff
-  uv add --dev ty
-  uv add --dev prek
+  uv add --dev ruff ty prek
 
   git init -b "main"
   uv run prek install
   uv run prek autoupdate
-  uv run prek install
 
   git add .
   uv run prek run --all-files
-  git add .
-  git commit -m "Initial commit"
+  git restore --staged
 }
 
 spinner() {
