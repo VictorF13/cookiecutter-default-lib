@@ -9,11 +9,19 @@ error message so that users can install what is needed before continuing.
 
 from __future__ import annotations
 
+import keyword
+import re
 import shutil
 import subprocess
 import sys
 
 REQUIRED_COMMANDS = ("uv", "git")
+
+PROJECT_SLUG = "{{ cookiecutter.project_slug }}"
+PACKAGE_SLUG = "{{ cookiecutter.package_slug }}"
+
+# PEP 508 / PyPI: must start and end with alphanumeric; interior may have . - _
+_PYPI_NAME_RE = re.compile(r"^[A-Za-z0-9]([A-Za-z0-9._-]*[A-Za-z0-9])?$")
 
 
 def _check_commands() -> None:
@@ -69,11 +77,31 @@ def _check_python_version() -> None:
         sys.exit(msg)
 
 
+def _check_slugs() -> None:
+    """Validate derived project_slug and package_slug."""
+    if not _PYPI_NAME_RE.match(PROJECT_SLUG):
+        sys.exit(
+            f"Invalid project name '{PROJECT_SLUG}': must start and end with a letter "
+            "or digit and contain only letters, digits, hyphens, underscores, and dots."
+        )
+    if not PACKAGE_SLUG.isidentifier():
+        sys.exit(
+            f"Invalid package name '{PACKAGE_SLUG}': must be a valid Python identifier "
+            "(letters, digits, and underscores only; cannot start with a digit)."
+        )
+    if keyword.iskeyword(PACKAGE_SLUG):
+        sys.exit(
+            f"Invalid package name '{PACKAGE_SLUG}': '{PACKAGE_SLUG}' is a reserved "
+            "Python keyword. Please choose a different project name."
+        )
+
+
 def main() -> None:
     """Run all dependency checks before rendering the template."""
     _check_commands()
     _check_git_user_config()
     _check_python_version()
+    _check_slugs()
 
 
 if __name__ == "__main__":
